@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  paxos-node1:
+    build: .
+    container_name: paxos-node1
+    networks:
+      - paxos-network
+    environment:
+      - NODE_ID=paxos-node1
+      - PEERS=paxos-node2,paxos-node3
+
+  paxos-node2:
+    build: .
+    container_name: paxos-node2
+    networks:
+      - paxos-network
+    environment:
+      - NODE_ID=paxos-node2
+      - PEERS=paxos-node1,paxos-node3
+
+  paxos-node3:
+    build: .
+    container_name: paxos-node3
+    networks:
+      - paxos-network
+    environment:
+      - NODE_ID=paxos-node3
+      - PEERS=paxos-node1,paxos-node2
+
+networks:
+  paxos-network:
+    driver: bridge
